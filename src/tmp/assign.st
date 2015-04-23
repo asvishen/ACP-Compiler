@@ -1,0 +1,1 @@
+assign(name,value) ::= " <value> <name> def "
