@@ -7,16 +7,19 @@ import java.util.regex.Pattern;
 
 
 
+
+
 public class PACVM {
 	
-
+	boolean flag = false;
     
     public static enum TokenType {
     	
-        STRING("\"(\\.|[^\"])*\""), INTEGER ("(\\+|-)?[0-9]+"),BOOLEAN ( "true|false"),
+        INTEGER ("(\\+|-)?[0-9]+"),BOOLEAN ( "true|false"),
+        
         STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),EXECUTE("EXECUTE"),
         OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|DIV|GTN|EQU|GRE"),
-        IDENTIFIER ( "[A-Za-z_][A-Za-z0-9]*")
+        IDENTIFIER ( "[A-Za-z_][A-Za-z0-9]*"),STRING("\"(\\.|[^\"])*\"")
         ;
         
         public final String pattern;
@@ -121,13 +124,19 @@ public class PACVM {
 			
 		}
     }
+    
+
     class SymbolEntry{
         String name;
         String value;
+
+        
         SymbolEntry(String name, String value) {
             this.name = name;
             this.value = value;
         }
+        
+
 
         @Override
         public String toString() {
@@ -137,7 +146,40 @@ public class PACVM {
     
     class SymbolTable{
         LinkedList<HashMap<String, SymbolEntry> > symbols = new LinkedList< HashMap<String, SymbolEntry>>();
-
+        LinkedList<HashMap <String, Stack<String>>> stackMap = new LinkedList<HashMap<String, Stack<String>> >();
+        
+//        void stackEnters(String name){
+//        	stackMap.addFirst(new HashMap <String, Stack<String>>());
+//        	//stackMap.put(name,new Stack<String>());
+//        }
+        
+        void stackPush(String name,String value){
+        	//stackMap.get(name).push(value);
+        	if(stackMap.getFirst().containsKey(name)){
+        	stackMap.getFirst().get(name).push(value);
+        	}
+        	else {
+        		System.out.println("Cannot push to stack:" + name + ". Stack does not exist");
+        	}
+        }
+        
+        String stackPop(String name){
+        	//return stackMap.get(name).pop();
+        	for(HashMap<String, Stack<String>> table : stackMap){
+        		if(table.containsKey(name)){
+        			try{
+        			return table.get(name).pop();
+        			}
+        			catch(EmptyStackException e){
+        				return null;
+        			}
+        		}
+        		
+        	}
+        	return null;
+        }
+        
+        
         SymbolEntry get(String symbol) {
             for (HashMap<String, SymbolEntry> table: symbols) {
                 if (table.containsKey(symbol)) {
@@ -151,20 +193,31 @@ public class PACVM {
         void bind(String name, String initialValue) {
             symbols.getFirst().put(name, new SymbolEntry(name, initialValue));
             
+            
+        }
+        void bindStack(String name){
+        	stackMap.getFirst().put(name, new Stack<String>());
         }
 
         void enter() {
             symbols.addFirst(new HashMap<String, SymbolEntry>());
+            stackMap.addFirst(new HashMap <String, Stack<String>>());
             
         }
+        
+
 
         void exit() {
             symbols.removeFirst();
+            stackMap.removeFirst();
             
         }
      }
     
+
+    
     Stack<String> stack = new java.util.Stack<String>();
+    //Stack<String> vmStack = new java.util.Stack<String>();
     SymbolTable symbols = new SymbolTable();
     LineNumberReader source = null;
     Boolean trace = false;
@@ -192,6 +245,15 @@ public class PACVM {
     void push(String value) {
         stack.push(value);
         
+    }
+    void showEnvironment() {
+        System.out.println(" ,:");
+        for (HashMap<String, SymbolEntry> scope : symbols.symbols){
+            System.out.println(":::   scope:" + scope);
+        }
+        System.out.println(":::");
+        System.out.println(":::   stack" + stack);
+        System.out.println(" `:");
     }
 
     String pop() {
@@ -225,8 +287,8 @@ public class PACVM {
                 push(String.valueOf(Integer.parseInt(s1) > Integer.parseInt(s2)));
                 break;
             case "EQU":
-            	System.out.println("REACHED EQU "+ String.valueOf(Integer.parseInt(s1) == Integer.parseInt(s2))
-            			);
+            	//System.out.println("REACHED EQU "+ String.valueOf(Integer.parseInt(s1) == Integer.parseInt(s2))
+            		//	);
                 push(String.valueOf(Integer.parseInt(s1) == Integer.parseInt(s2)));
                 break;
             case "LEQ":
@@ -259,18 +321,22 @@ public class PACVM {
     void processBlock(Tokenizer scanner){
     	TokenType next = scanner.nextType();
     	//System.out.println(next);
+    	//flag=false; 
     	if (next ==  TokenType.STARTBLOCK)
     	{
     		scanner.next();
             symbols.enter();
             
             while (scanner.nextType() != TokenType.BLOCKEND ) {
+            	//showEnvironment();
             	
+            	//System.out.println(scanner.nextType());
             	switch (scanner.nextType()){
 
                 case STRING:
                     // I encountered an issue that the quot characters were part of the string
                     // This is a hackish way to allow escaped quotes...
+                	//System.out.println("THIS IS A STRING ");
                     push(unquoted(scanner.next()).replace("\\\"", "\""));
                     break;
                 case INTEGER:
@@ -280,7 +346,7 @@ public class PACVM {
                 case IDENTIFIER:
                     String symbol = scanner.next();
                     switch(symbol){
-                    case "PUSH"	: 
+                    case "PUSH"	: 	//System.out.println("u have a push id");
                     				break;
                     
                     case "SHOW": 	System.out.println(pop()); 
@@ -288,27 +354,41 @@ public class PACVM {
                     
                     case "ASSIGN" : symbols.bind(pop(), pop());
                     				break;
+                    case "STACK"  : symbols.bindStack(pop());
+                    				break;
+                    case "SPUSH" :  symbols.stackPush(pop(), pop());
+                    				break;
                     				
+                    case "SPOP"	:   String popped = pop();	
+                    				if(symbols.stackPop(popped) != null ) {
+                    			
+                    				push(symbols.stackPop(pop()));
+                    				
+                    				}
+                    				else{
+                    				System.out.println("Stack does not exist or is empty. Cannot pop");
+                    				}
+                    				
+                    				break;
                     case "WHILE" : 	
+                    				flag=true;
                     				StringBuffer buffer = new StringBuffer();
                                 	innerscope(scanner, buffer);
-                                	String block =buffer.substring(5);
+                                	String block = buffer.substring(5);
                                 	buffer = new StringBuffer();
                                 	innerscope(scanner, buffer);
                                 	String cond = buffer.substring(5);
-                                	System.out.println("block is " + block);
-                                	System.out.println("cond is " + cond);
                                 	push(cond);
-                                	//scanner.next();
-                					processBlock(new Tokenizer(pop()));
+                                	processBlock(new Tokenizer(pop()));
                                 	while(pop()=="true"){
                                 		push(block);
                                 		processBlock(new Tokenizer(pop()));
                     					push(cond);
                     					processBlock(new Tokenizer(pop()));
                                 	}
-                                	
-                                	
+                                	//System.out.println("this  is Cuurent env:");
+                                	//showEnvironment();
+                                	flag=false;
                     				break;
                     
                     case "IF" : 	System.out.println(":::   stack" + stack);
@@ -346,22 +426,23 @@ public class PACVM {
                         			}
                         			break;
                     
-                    default:
+                    default:		
                         			push(symbols.get(symbol).value);
                     	
                     }
+                    break;
                     
-                case STARTBLOCK:	processBlock(scanner);
+                case STARTBLOCK:	System.out.println("STARTING NEW BLOCK");
+                					processBlock(scanner);
                 					break;
                 	
                 
                 case STARTINNERBLOCK:                        
-                	StringBuffer buffer = new StringBuffer();
-                	innerscope(scanner, buffer);
-                	
-                	push(buffer.substring(5));  //Remove the quote
-                	break;
-                case EXECUTE :         scanner.next();
+                					StringBuffer buffer = new StringBuffer();
+                					innerscope(scanner, buffer);
+                					push(buffer.substring(5));  //Remove the quote
+                					break;
+                case EXECUTE :      scanner.next();
                 					processBlock(new Tokenizer(pop()));
                 					break;
                 	
@@ -378,6 +459,10 @@ public class PACVM {
             }
             
         }
+            if(!flag){
+            symbols.exit();
+            }
+            scanner.next();
     	}
     	
     	
@@ -427,9 +512,6 @@ public class PACVM {
             e.printStackTrace();
         }
     }
-	
-		
-		// TODO Auto-generated method stub
 
 	}
 
