@@ -1,6 +1,8 @@
 grammar ACP;
 
-start :	'function' ID '(' params(','params)* ')' '<<' (block)+ '>>'   			#funcwithparam
+start: func+;
+
+func 	:	'function' ID '(' params(','params)* ')' '<<' (block)+ '>>'   		#funcwithparam
 		|'function' ID'(' ')' '<<'(block)+'>>'			  			#funcwithoutparam
 		|(block)+										  			#justAnotherBlock
 		;
