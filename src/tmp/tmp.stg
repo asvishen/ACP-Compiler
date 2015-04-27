@@ -1,0 +1,23 @@
+arithmetic(op, left, right) ::= "<op> <left> <right>"
+
+comparison(op, left, right) ::= "<left> <right> <op>"
+
+if(cond, truestmt, elsestmt) ::= "@[<truestmt>] @[<elsestmt>] <cond> if!"
+
+assign(name,value) ::= "@[<value>] "<name>" def"
+
+ifwithelse(cond, truestmt) ::= "@[<truestmt>] <cond> if!"
+
+funccall(params, name) ::= "<params> <name>!"
+
+funcwithparam(name,params,block) ::= "@[ <param> <block> ] <name> def "
+
+funcwoparam(name,block) ::= "@[ <block> ] <name> def "
+
+
+
+
+								  
+								  
+								  
+

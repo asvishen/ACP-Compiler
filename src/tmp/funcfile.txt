@@ -1,0 +1,9 @@
+[
+@[ "n" def 
+ @[n 1 - fact! n *] @[1] 
+ n 0 >  if! ] "fact" def 
+  
+  4 fact! "a" def 
+ 
+
+]
