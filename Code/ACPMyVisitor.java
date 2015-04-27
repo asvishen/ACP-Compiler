@@ -160,7 +160,8 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNumber(@NotNull ACPParser.NumberContext ctx) {super.visitNumber(ctx);
+	@Override public T visitNumber(@NotNull ACPParser.NumberContext ctx) {
+		super.visitNumber(ctx);
 		return new T(ctx.NumberValue().getText()); 
 	}
 
@@ -204,7 +205,10 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGotofactor(@NotNull ACPParser.GotofactorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGotofactor(@NotNull ACPParser.GotofactorContext ctx) {
+		String factor = visit(ctx.factor());
+		return new T(factor);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -225,7 +229,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 */
 	@Override public T visitCallfunc(@NotNull ACPParser.CallfuncContext ctx) { 	
 		T sum = this.visit(ctx.sumexpr());
-				String id = ctx.ID().getText();
+		String id = ctx.ID().getText();
 		return new T(sum.asString() + " "+ id+"!");
 	}
 
