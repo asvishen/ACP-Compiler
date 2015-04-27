@@ -498,7 +498,10 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGototerm(@NotNull ACPParser.GototermContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGototerm(@NotNull ACPParser.GototermContext ctx) { 
+		String term = visit(ctx.term());
+		return new T(term); 
+	}
 
 	/**
 	 * {@inheritDoc}
