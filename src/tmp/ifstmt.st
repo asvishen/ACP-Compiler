@@ -1,1 +1,8 @@
-ifstmt(cond, truestmt, elsestmt) ::= "@[<truestmt>] @<elsestmt> <cond> if!"
+ifelsestmt(cond, truestmt, elsestmt) ::= "INNERSCOPEBEGINS 
+									<truestmt>
+									SCOPEENDS
+									INNERSCOPEBEGINS
+									<elsestmt>
+									SCOPEENDS
+									<cond>
+									PUSH IF"

@@ -13,7 +13,7 @@ ifstmt : 'if' '(' compexpr ')' '<<'(block)+'>>' 					#ifonly
 	| 'if' '(' compexpr ')' '<<'(block)+'>>' 'else' elsepart		#ifwithout
 	;
 	
-whilestmt: 'while' '(' compexpr+ ')' '<<'(block)+'>>' 				
+whilestmt: 'while' '(' compexpr ')' '<<'(block)+'>>' 				
 	; 
 
 elsepart: '<<'(block)+'>>'

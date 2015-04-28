@@ -1,1 +1,5 @@
-arithmetic(left, right, op) ::= "<left> <right> <op>"
+arithmetic(left, right, op) ::= "
+								PUSH <left>
+								PUSH <right>
+								PUSH <op>
+								"

@@ -1,1 +1,5 @@
-assign(name,value) ::= " <value> <name> def "
+assign(name,value) ::= "
+						PUSH <value>
+						PUSH <name>
+						PUSH ASSIGN
+						"
