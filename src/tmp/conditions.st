@@ -1,1 +1,5 @@
-conditions(left,right,op) ::= " <left> <right> <op> "
+conditions(left,right,op) ::= "
+PUSH <left>
+PUSH <right>
+PUSH <op>
+"

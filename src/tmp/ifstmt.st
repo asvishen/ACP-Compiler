@@ -1,4 +1,4 @@
-ifelsestmt(cond, truestmt, elsestmt) ::= "
+ifstmt(cond, truestmt, elsestmt) ::= "
 INNERSCOPEBEGINS
 <truestmt>
 SCOPEENDS

@@ -1,2 +1,9 @@
-funcwithparams(name,param,block) ::= "@[ <param> <block> ] <name> def "
+funcwithparams(name,param,block) ::= "
+INNERSCOPEBEGINS
+<param>
+<block>
+SCOPEENDS 
+PUSH <name>
+ASSIGN
+"
 

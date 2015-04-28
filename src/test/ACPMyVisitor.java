@@ -12,18 +12,18 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T>{
-		String pathOfProject = "/Users/avijitvishen/git/ser-502-p2/src/tmp";
+		String pathOfProject = "C:/Users/Chinmay/Documents/Bitbucket/ser-502-p2/src/tmp";
 		@Override public T visitSub(  ACPParser.SubContext ctx) { 
 		super.visitSub(ctx);
 		T left = visit(ctx.sumexpr()); // get value of left subexpression
 		T right = visit(ctx.term());
 				STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("arithmetic");
-		st.add("op", "-");
+		st.add("op", "SUB");
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is sub"+result);
+		//System.out.println("this is sub"+result);
 		return new T(result); 
 		}
 
@@ -44,7 +44,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("block result"+result);
+		//System.out.println("block result"+result);
 		
 		
 		return new T(result+"\n");
@@ -83,15 +83,33 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		T right = visit(ctx.factor());
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("arithmetic");
-		st.add("op", "*");
+		st.add("op", "MUL");
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is mul"+result);
+		//System.out.println("this is mul"+result);
 		return new T(result);
 	}
 
-	@Override public T visitPrintstmt(  ACPParser.PrintstmtContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrintstmt(  ACPParser.PrintstmtContext ctx) {
+		super.visitPrintstmt(ctx);
+		String text="";
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("printstmt");
+		for(int i=0; i< ctx.ID().size();i++){
+			
+		
+		text = text + ctx.ID(i).getText() + " ";
+		
+		}
+		st.add("value","\""+text+"\"");
+		String result = st.render();
+		
+		
+
+		
+		return new T("\n"+ result);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -105,11 +123,11 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		T right = visit(ctx.factor());
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("arithmetic");
-		st.add("op", "/");
+		st.add("op", "DIV");
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println(result);
+		//System.out.println(result);
 		return new T(result);	
 		}
 
@@ -127,7 +145,15 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	return new T(ctx.NumberValue().getText()); 
 	}
 
-	@Override public T visitElsepart(  ACPParser.ElsepartContext ctx) { return visitChildren(ctx); }
+	@Override public T visitElsepart(  ACPParser.ElsepartContext ctx) {
+		super.visitElsepart(ctx);
+		List<T> blockList = new ArrayList<T>();
+		for(int i=0; i< ctx.block().size();i++){
+		blockList.add(visit(ctx.block(i)));
+		}
+		
+		return new T(blockList); 
+		}
 
 	/**
 	 * {@inheritDoc}
@@ -145,7 +171,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is AND"+result);
+		//System.out.println("this is AND"+result);
 		return new T(result);} 
 
 	/**
@@ -154,7 +180,9 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBlock(  ACPParser.BlockContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBlock(  ACPParser.BlockContext ctx) { super.visitBlock(ctx);
+		return visitChildren(ctx); 
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -170,7 +198,8 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		return new T(id);
 		}
 
-	@Override public T visitCallfunc(  ACPParser.CallfuncContext ctx) { return visitChildren(ctx); }
+	@Override public T visitCallfunc(  ACPParser.CallfuncContext ctx) {return visitChildren(ctx);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -198,7 +227,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 		st.add("param", param);
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("funcparam result "+result);
+		//System.out.println("funcparam result "+result);
 		
 		
 		return new T( result);
@@ -206,19 +235,48 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 
 	@Override public T visitAdd(  ACPParser.AddContext ctx) { 
 		super.visitAdd(ctx);
-		System.out.println("enterting aaddddd");
+		//System.out.println("enterting aaddddd");
 		T left = this.visit(ctx.sumexpr()); // get value of left subexpression
 		T right = this.visit(ctx.term());
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("arithmetic");
 		st.add("left", left.toString());
 		st.add("right", right.toString());
-		st.add("op", "+");
+		st.add("op", "ADD");
 		String result = st.render(); // yields "int x = 0;"
 		return new T(result);
 	}
 
-	@Override public T visitComp(  ACPParser.CompContext ctx) { return visitChildren(ctx); }
+	@Override public T visitComp(  ACPParser.CompContext ctx) {
+		super.visitComp(ctx);
+		T left = this.visit(ctx.sumexpr(0));
+		T right = this.visit(ctx.sumexpr(1));
+		String op = ctx.CMPOP().getText();
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("conditions");
+		st.add("left", left);
+		st.add("right", right);
+		switch(op){
+			case "<=":
+				st.add("op", "LEQ");
+				break;
+			case ">=":
+				st.add("op", "GRE");
+				break;
+			case "<":
+				st.add("op", "LET");
+				break;
+			case ">":
+				st.add("op", "GTN");
+				break;
+			case "==":
+				st.add("op", "EQU");
+				break;
+		}
+		
+		String result = st.render();
+		return new T("\n"+result);
+		}
 
 	/**
 	 * {@inheritDoc}
@@ -236,7 +294,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is OR"+result);
+		//System.out.println("this is OR"+result);
 		return new T(result);}
 
 	/**
@@ -254,7 +312,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStart(  ACPParser.StartContext ctx) { 
-		System.out.println("Entering Start");
+		////System.out.println("Entering Start");
 		List<T> blockList = new ArrayList<T>();
 		
 		for(int i=0; i< ctx.func().size();i++){
@@ -266,12 +324,12 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(pathOfProject+"/fff.mvm", "UTF-8");
-			writer.println("[");
+			//writer.println("[");
 			for(T line: blockList)
 			{
 				writer.println(line.asString());
 			}
-			writer.println("]");
+			//writer.println("]");
 
 		
 			writer.close();
@@ -284,8 +342,8 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		}
 		
 		
-		System.out.println("entering start");
-		return new T("["+blockList+"]");
+		//System.out.println("entering start");
+		return new T(blockList);
 		
 	}
 
@@ -296,7 +354,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		
 		
 		
-		return new T("\""+id + "\""  + " def \n");
+		return new T(id);
 	}
 
 	@Override public T visitFuncwithoutparam(  ACPParser.FuncwithoutparamContext ctx) { 
@@ -320,7 +378,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("funcwoparam result"+result);
+		//System.out.println("funcwoparam result"+result);
 		
 		
 	return new T(result);
@@ -338,7 +396,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("value", value);
 
 		String result = st.render(); 
-		System.out.println("Funccall result"+result);
+		//System.out.println("Funccall result"+result);
 		
 		
 	return new T(result);
@@ -413,7 +471,11 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitReturnstmt(  ACPParser.ReturnstmtContext ctx) { return visitChildren(ctx); }
+	@Override public T visitReturnstmt(  ACPParser.ReturnstmtContext ctx) {
+		super.visitReturnstmt(ctx);
+		T sum = this.visit(ctx.sumexpr());
+		return new T(sum.asString()); 
+		}
 
 	/**
 	 * {@inheritDoc}
@@ -439,11 +501,11 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("assign");
 		st.add("name", "\""+id+"\"");
-		st.add("value", "\""+value+"\"");
+		st.add("value", value);
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("visit:"+result);
+		////System.out.println("visit:"+result);
 		
 		
-		return new T( result+"\n");
+		return new T(result);
 	}
 }

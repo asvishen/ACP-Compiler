@@ -23,7 +23,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is sub"+result);
+		////System.out.println("this is sub"+result);
 		return new T(result); 
 		}
 
@@ -44,7 +44,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("block result"+result);
+		////System.out.println("block result"+result);
 		
 		
 		return new T(result+"\n");
@@ -86,7 +86,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is mul"+result);
+		////System.out.println("this is mul"+result);
 		return new T(result);
 	}
 
@@ -108,7 +108,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println(result);
+		////System.out.println(result);
 		return new T(result);	
 		}
 
@@ -144,7 +144,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is AND"+result);
+		////System.out.println("this is AND"+result);
 		return new T(result);} 
 
 	/**
@@ -197,7 +197,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 		st.add("param", param);
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("funcparam result "+result);
+		////System.out.println("funcparam result "+result);
 		
 		
 		return new T( result);
@@ -205,7 +205,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 
 	@Override public T visitAdd(  ACPParser.AddContext ctx) { 
 		super.visitAdd(ctx);
-		System.out.println("enterting aaddddd");
+		////System.out.println("enterting aaddddd");
 		T left = this.visit(ctx.sumexpr()); // get value of left subexpression
 		T right = this.visit(ctx.term());
 		STGroup group = new STGroupDir(pathOfProject);
@@ -235,7 +235,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("this is OR"+result);
+		//System.out.println("this is OR"+result);
 		return new T(result);}
 
 	/**
@@ -253,7 +253,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStart(  ACPParser.StartContext ctx) { 
-		System.out.println("Entering Start");
+		//System.out.println("Entering Start");
 		List<T> blockList = new ArrayList<T>();
 		
 		for(int i=0; i< ctx.func().size();i++){
@@ -283,7 +283,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		}
 		
 		
-		System.out.println("entering start");
+		//System.out.println("entering start");
 		return new T("["+blockList+"]");
 		
 	}
@@ -319,7 +319,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("block", blockList);
 
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("funcwoparam result"+result);
+		//System.out.println("funcwoparam result"+result);
 		
 		
 	return new T(result);
@@ -337,7 +337,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("value", value);
 
 		String result = st.render(); 
-		System.out.println("Funccall result"+result);
+		//System.out.println("Funccall result"+result);
 		
 		
 	return new T(result);
@@ -440,7 +440,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("name", "\""+id+"\"");
 		st.add("value", "\""+value+"\"");
 		String result = st.render(); // yields "int x = 0;"
-		System.out.println("visit:"+result);
+		//System.out.println("visit:"+result);
 		
 		
 		return new T( result+"\n");
