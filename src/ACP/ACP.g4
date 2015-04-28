@@ -2,7 +2,7 @@ grammar ACP;
 
 start: func+;
 
-func 	:	'function' ID '(' params(','params)* ')' '<<' (block)+ '>>'   		#funcwithparam
+func 	:	'function' ID '(' params ')' '<<' (block)+ '>>'   		#funcwithparam
 		|'function' ID'(' ')' '<<'(block)+'>>'			  			#funcwithoutparam
 		|(block)+										  			#justAnotherBlock
 		;

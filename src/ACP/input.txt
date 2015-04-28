@@ -1,22 +1,23 @@
-<<
 function fact(int n)
 <<
-if(n > 0) 
+	if(n > 0) 
 	<<
-	return fact(n-1)*n;
+		return fact(n-1)*n;
 	>>
 	else
 	<<
-	return 1;
+		return 1;
 	>>
 >>
+
 int a = fact(4);
+
 if(a == 24)
-	<<
+<<
 	print [i think this is it];
-	>>
-	else
-	<<
-	print [i dont think this is ever going to work];
-	>>
 >>
+else
+<<
+	print [i dont think this is ever going to work];
+>>
+
