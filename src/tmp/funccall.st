@@ -1,4 +1,5 @@
-funccall(name,value) ::= "PUSH <value>
-						  PUSH <name>
-						  EXECUTE
-						 "
+funccall(name,value) ::= "
+PUSH <value>
+PUSH <name>
+EXECUTE
+"

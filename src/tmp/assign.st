@@ -1,5 +1,5 @@
 assign(name,value) ::= "
-						PUSH <value>
-						PUSH <name>
-						PUSH ASSIGN
-						"
+PUSH <value>
+PUSH <name>
+PUSH ASSIGN
+"

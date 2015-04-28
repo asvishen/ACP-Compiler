@@ -1,7 +1,8 @@
-whilestmt(cond, block) ::= "INNERSCOPEBEGINS 
-									<block>
-									SCOPEENDS
-									INNERSCOPEBEGINS
-									<cond>
-									SCOPEENDS
-									"
+whilestmt(cond, block) ::= "
+INNERSCOPEBEGINS
+<block>
+SCOPEENDS
+INNERSCOPEBEGINS
+<cond>
+SCOPEENDS
+"

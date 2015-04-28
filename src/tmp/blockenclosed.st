@@ -1,2 +1,4 @@
-blockenclosed(block) ::= " <block> "
+blockenclosed(block) ::= "
+<block>
+"
 
