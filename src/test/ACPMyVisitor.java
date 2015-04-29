@@ -12,7 +12,7 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T>{
-		String pathOfProject = "C:/Users/Chinmay/Documents/Bitbucket/ser-502-p2/src/tmp";
+		String pathOfProject = "C:/Users/Priyanka Vats/Documents/ser-502-p2/src/tmp";
 		@Override public T visitSub(  ACPParser.SubContext ctx) { 
 		super.visitSub(ctx);
 		T left = visit(ctx.sumexpr()); // get value of left subexpression
@@ -351,10 +351,12 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		super.visitParams(ctx);
 		String id = ctx.ID().getText();
 		
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("param");
+		st.add("name", "\""+id+"\"");
+		String result = st.render();
 		
-		
-		
-		return new T(id);
+		return new T (result);
 	}
 
 	@Override public T visitFuncwithoutparam(  ACPParser.FuncwithoutparamContext ctx) { 

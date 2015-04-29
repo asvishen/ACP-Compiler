@@ -12,7 +12,7 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T>{
-		String pathOfProject = "C:/Users/Chinmay/Documents/Bitbucket/ser-502-p2/src/tmp";
+		String pathOfProject = "C:\Users\Priyanka Vats\Documents\ser-502-p2\src\tmp";
 		@Override public T visitSub(  ACPParser.SubContext ctx) { 
 		super.visitSub(ctx);
 		T left = visit(ctx.sumexpr()); // get value of left subexpression
