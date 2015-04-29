@@ -1,4 +1,4 @@
-printstmt(value) ::= "
+printstmt(value) ::= <<
 PUSH <value>
 SHOW
-"
+>>

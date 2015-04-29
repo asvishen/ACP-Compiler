@@ -10,7 +10,8 @@ function fact(int n)
 	>>
 >>
 
-int a = fact(4);
+int a;
+a= fact(4);
 
 if(a == 24)
 <<
@@ -20,4 +21,3 @@ else
 <<
 	print [i dont think this is ever going to work];
 >>
-

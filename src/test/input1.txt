@@ -1,5 +1,7 @@
 function fact(int n)
 <<
-	int a=1;
-	print a;
+	if(n>1)
+	<<
+		print [chi];
+	>>
 >>

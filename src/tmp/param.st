@@ -1,4 +1,4 @@
-param(name) ::= "
+param(name) ::= <<
 PUSH <name>
 ASSIGN
-"
+>>

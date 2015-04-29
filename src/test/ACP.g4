@@ -54,7 +54,8 @@ printstmt : 'print' '[' ID+ ']' ';';
 returnstmt : 'return' sumexpr';'
 		;
 
-call : ID '(' sumexpr ')' 			
+call : ID '(' sumexpr ')'						#simplecall
+			//| ID '=' ID'(' sumexpr ')'';'			#complexcall
 	;
 
 stackdecl: 'stack' ID';';

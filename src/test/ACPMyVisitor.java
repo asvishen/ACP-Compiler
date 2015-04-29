@@ -12,7 +12,7 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T>{
-		String pathOfProject = "C:/Users/Priyanka Vats/Documents/ser-502-p2/src/tmp";
+		String pathOfProject = "C:/Users/Chinmay/Documents/Bitbucket/ser-502-p2/src/tmp";
 		@Override public T visitSub(  ACPParser.SubContext ctx) { 
 		super.visitSub(ctx);
 		T left = visit(ctx.sumexpr()); // get value of left subexpression
@@ -57,6 +57,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		super.visitIfwithout(ctx);
 		T compexpr= this.visit(ctx.compexpr());
 		T elseP = this.visit(ctx.elsepart());
+		//System.out.println(elseP);
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("ifstmt");
 		
@@ -72,7 +73,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("elsestmt", elseP);
 		st.add("cond", compexpr);
 		String result = st.render();
-		
+		//sSystem.out.println("------->>>>>>"+result+"<-------");
 		return new T(result);
 	
 	}
@@ -386,8 +387,26 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	return new T(result);
 		 
 	}
+	
+	//@Override public T visitComplexcall(ACPParser.ComplexcallContext ctx) { return visitChildren(ctx); }
+	
+	@Override public T visitSimplecall(ACPParser.SimplecallContext ctx) {
+		super.visitSimplecall(ctx);
+	String id = ctx.ID().getText();
+	T value = visit(ctx.sumexpr());
+	
+	STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("funccallsimple");
+		st.add("name", id);
+		st.add("value", value);
 
-	@Override public T visitCall(  ACPParser.CallContext ctx) { 
+		String result = st.render(); 
+		//System.out.println("Funccall result"+result);
+		
+		
+	return new T(result);}
+
+	/*@Override public T visitCall(  ACPParser.CallContext ctx) { 
 	super.visitCall(ctx);
 	String id = ctx.ID().getText();
 	T value = visit(ctx.sumexpr());
@@ -403,7 +422,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		
 	return new T(result);
 		
-	}
+	}*/
 
 	/**
 	 * {@inheritDoc}

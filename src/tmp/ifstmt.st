@@ -1,4 +1,4 @@
-ifstmt(cond, truestmt, elsestmt) ::= "
+ifstmt(cond, truestmt, elsestmt) ::= <<
 INNERSCOPEBEGINS
 <truestmt>
 SCOPEENDS
@@ -7,4 +7,5 @@ INNERSCOPEBEGINS
 SCOPEENDS
 <cond>
 PUSH IF
-"
+EXECUTE
+>>

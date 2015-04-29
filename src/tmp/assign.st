@@ -1,5 +1,5 @@
-assign(name,value) ::= "
+assign(name,value) ::= <<
 PUSH <value>
 PUSH <name>
 PUSH ASSIGN
-"
+>>
