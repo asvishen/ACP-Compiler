@@ -1,0 +1,21 @@
+function abc(int a)
+<<
+        int a=1;
+        int b=2;
+        if(a==1 and b<=2)
+        <<
+                print [both conditions satisfy];
+        >>
+        else
+        <<
+                print [no];
+        >>
+        if(b<=2 or a==1)
+        <<
+                print [either conditions satisfy];
+        >>
+        else
+        <<
+                print [No];
+        >>
+>>

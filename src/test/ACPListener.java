@@ -178,15 +178,29 @@ public interface ACPListener extends ParseTreeListener {
 	 */
 	void exitBlock(ACPParser.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ACPParser#printstmt}.
+	 * Enter a parse tree produced by the {@code printString}
+	 * labeled alternative in {@link ACPParser#printstmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterPrintstmt(ACPParser.PrintstmtContext ctx);
+	void enterPrintString(ACPParser.PrintStringContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ACPParser#printstmt}.
+	 * Exit a parse tree produced by the {@code printString}
+	 * labeled alternative in {@link ACPParser#printstmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitPrintstmt(ACPParser.PrintstmtContext ctx);
+	void exitPrintString(ACPParser.PrintStringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code printvariable}
+	 * labeled alternative in {@link ACPParser#printstmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintvariable(ACPParser.PrintvariableContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code printvariable}
+	 * labeled alternative in {@link ACPParser#printstmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintvariable(ACPParser.PrintvariableContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ACPParser#returnstmt}.
 	 * @param ctx the parse tree
@@ -220,15 +234,41 @@ public interface ACPListener extends ParseTreeListener {
 	 */
 	void exitStackdecl(ACPParser.StackdeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ACPParser#stackoperation}.
+	 * Enter a parse tree produced by the {@code stackpush}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
 	 * @param ctx the parse tree
 	 */
-	void enterStackoperation(ACPParser.StackoperationContext ctx);
+	void enterStackpush(ACPParser.StackpushContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ACPParser#stackoperation}.
+	 * Exit a parse tree produced by the {@code stackpush}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
 	 * @param ctx the parse tree
 	 */
-	void exitStackoperation(ACPParser.StackoperationContext ctx);
+	void exitStackpush(ACPParser.StackpushContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stackpop}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackpop(ACPParser.StackpopContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stackpop}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackpop(ACPParser.StackpopContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code stackshow}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 */
+	void enterStackshow(ACPParser.StackshowContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stackshow}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 */
+	void exitStackshow(ACPParser.StackshowContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link ACPParser#assignmentStatment}.

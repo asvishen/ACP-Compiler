@@ -64,8 +64,8 @@ stackdecl: 'stack' ID';';
 
 stackoperation: ID'.' 'push' '(' factor ')' ';'			#stackpush
 				|ID'.' 'pop' '(' ')' ';'				#stackpop
+				|ID'.' 'show' '(' ')' ';'				#stackshow
 				;
-
 	
 assignmentStatment : Datatype ID '=' sumexpr';' 					#assign
 					;

@@ -1,0 +1,6 @@
+function func(int a)
+<<
+	int a=2;
+	print [Value of a is ];
+	print [a];
+>>
