@@ -427,20 +427,21 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 			writer.println("SCOPEBEGINS");
 			for(T line: blockList)
 			{
-//				String code = line.asString();
-//				StringBuffer text;
-//				if(code.contains("PUSH")){
-//					text= new StringBuffer(code);
-//					while(text.toString().contains("PUSH")){
-//					int start = text.toString().indexOf("PUSH");
-//					text.replace(start,start+5,"");
-//					
-//					}
-//					line = new T(new String("PUSH "+text.toString()));
-//					
-//					
-//					
-//				}
+				String code = line.asString();
+				if(code.contains("PUSH")){
+				String[] arr = code.split(" ");
+				String text="";
+				for(int i =0;i<arr.length;i++){
+					if(!arr[i].equals("PUSH")){
+						
+						text+=arr[i];
+						
+					}
+				}
+				System.out.println("PUSH "+" "+text);	
+				line =  new T("PUSH "+ " " +text);
+				}
+				
 				writer.println(line);
 			}
 			writer.println("SCOPEENDS");
@@ -506,17 +507,17 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	
 	@Override public T visitSimplecall(ACPParser.SimplecallContext ctx) {
 		super.visitSimplecall(ctx);
-	String id = ctx.ID().getText();
-	T value = visit(ctx.sumexpr());
+		String id = ctx.ID().getText();
+		T value = visit(ctx.sumexpr());
 	
-	STGroup group = new STGroupDir(pathOfProject);
+		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("funccallsimple");
 		 
-		if(value.asString().contains("PUSH")){
-			
-			
-			
-		}
+//		if(value.asString().contains("PUSH")){
+//			
+//			
+//			
+//		}
 		st.add("name", id);
 		st.add("value", value);
 
