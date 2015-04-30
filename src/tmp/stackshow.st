@@ -1,4 +1,4 @@
-stackremove(name) ::= <<
+stackshow(name) ::= <<
 PUSH <name>
 SSHOW
 

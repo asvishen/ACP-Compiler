@@ -500,7 +500,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		}
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("funcwoparams");
-		st.add("name", id);
+		st.add("name", "\""+id+"\"");
 		st.add("block", blockList);
 
 		String result = st.render(); // yields "int x = 0;"

@@ -1,4 +1,4 @@
-funcwoparam(name,block) ::= <<
+funcwoparams(name,block) ::= <<
 INNERSCOPEBEGINS
 <block>
 SCOPEENDS
