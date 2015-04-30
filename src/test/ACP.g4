@@ -68,6 +68,7 @@ stackoperation: ID'.' 'push' '(' factor ')' ';'			#stackpush
 				;
 	
 assignmentStatment : Datatype ID '=' sumexpr';' 					#assign
+					| ID '=' sumexpr';'								#assignIncrDecr
 					;
 						
 

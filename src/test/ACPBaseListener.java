@@ -304,6 +304,18 @@ public class ACPBaseListener implements ACPListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAdd(ACPParser.AddContext ctx) { }
 	/**
 	 * {@inheritDoc}
