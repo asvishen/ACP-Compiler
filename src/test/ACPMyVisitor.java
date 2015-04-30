@@ -3,6 +3,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
@@ -26,7 +27,6 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	@Override public T visitJustAnotherBlock(  ACPParser.JustAnotherBlockContext ctx) { 
 		//T block = this.visit(ctx.block());
 		super.visitJustAnotherBlock(ctx);
-		List<T> blockList = new ArrayList<T>();
 		String temp="";
 		for(int i=0; i< ctx.block().size();i++){
 			if(visit(ctx.block(i)).isList()){
@@ -59,14 +59,8 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		super.visitIfwithout(ctx);
 		T compexpr= this.visit(ctx.compexpr());
 		T elseP = visit(ctx.elsepart());
-		//System.out.println(elseP);
 		STGroup group = new STGroupDir(pathOfProject);
-		ST st = group.getInstanceOf("ifstmt");
-		
-		
-		 // yields "int x = 0;"
-		
-		
+		ST st = group.getInstanceOf("ifstmt");		
 		List<T> blockList = new ArrayList<T>();
 		for(int i=0; i< ctx.block().size();i++){
 		blockList.add(visit(ctx.block(i)));
@@ -75,7 +69,6 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("elsestmt", elseP);
 		st.add("cond", compexpr);
 		String result = st.render();
-		//sSystem.out.println("------->>>>>>"+result+"<-------");
 		return new T(result);
 	
 	}
@@ -90,7 +83,6 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		//System.out.println("this is mul"+result);
 		return new T(result);
 	}
 
@@ -200,6 +192,38 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		
 		
 		}
+	@Override public T visitStackshow(ACPParser.StackshowContext ctx) { 
+		super.visitStackshow(ctx);
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("stackshow");
+		String id = ctx.ID().getText().toString();
+		st.add("name", id);
+		String result = st.render();
+		return new T(result);
+		
+		
+	
+	}
+
+	
+	
+	@Override public T visitAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx) { 
+		super.visitAssignIncrDecr(ctx); 
+		String id = ctx.ID().getText();
+		T value = visit(ctx.sumexpr());
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("assign");
+		st.add("name", "\""+id+"\"");
+		st.add("value", value);
+		String result = st.render(); 
+		
+		
+		
+		return new T(result);
+		
+		
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -403,6 +427,20 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 			writer.println("SCOPEBEGINS");
 			for(T line: blockList)
 			{
+//				String code = line.asString();
+//				StringBuffer text;
+//				if(code.contains("PUSH")){
+//					text= new StringBuffer(code);
+//					while(text.toString().contains("PUSH")){
+//					int start = text.toString().indexOf("PUSH");
+//					text.replace(start,start+5,"");
+//					
+//					}
+//					line = new T(new String("PUSH "+text.toString()));
+//					
+//					
+//					
+//				}
 				writer.println(line);
 			}
 			writer.println("SCOPEENDS");
@@ -473,6 +511,12 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	
 	STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("funccallsimple");
+		 
+		if(value.asString().contains("PUSH")){
+			
+			
+			
+		}
 		st.add("name", id);
 		st.add("value", value);
 

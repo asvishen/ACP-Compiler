@@ -158,12 +158,26 @@ public interface ACPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStackpop(ACPParser.StackpopContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code stackshow}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStackshow(ACPParser.StackshowContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link ACPParser#assignmentStatment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitAssign(ACPParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code assignIncrDecr}
+	 * labeled alternative in {@link ACPParser#assignmentStatment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code add}
 	 * labeled alternative in {@link ACPParser#sumexpr}.

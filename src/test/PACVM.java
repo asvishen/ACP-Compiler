@@ -198,6 +198,20 @@ public class PACVM {
         void bindStack(String name){
         	stackMap.getFirst().put(name, new Stack<String>());
         }
+        String showStack(String name){
+        	for(HashMap<String, Stack<String>> table : stackMap){
+        		if(table.containsKey(name)){
+        			try{
+        			return table.get(name).toString();
+        			}
+        			catch(EmptyStackException e){
+        				return null;
+        			}
+        		}
+        		
+        	}
+        	return null;
+        }
 
         void enter() {
             symbols.addFirst(new HashMap<String, SymbolEntry>());
@@ -346,7 +360,7 @@ public class PACVM {
                 case IDENTIFIER:
                     String symbol = scanner.next();
                     switch(symbol){
-                    case "PUSH"	: 	//System.out.println("u have a push id");
+                    case "PUSH"	: 	
                     				break;
                     
                     case "SHOW": 	System.out.println(pop()); 
@@ -354,20 +368,23 @@ public class PACVM {
                     
                     case "ASSIGN" : symbols.bind(pop(), pop());
                     				break;
-                    case "STACK"  : symbols.bindStack(pop());
+                    				
+                    case "STACK"  : 
+                    				symbols.bindStack(pop());
+                    				
                     				break;
                     case "SPUSH" :  symbols.stackPush(pop(), pop());
+                    				
+                    				break;
+                    case "SSHOW" :  
+                    				System.out.println(symbols.showStack(pop()));
                     				break;
                     				
-                    case "SPOP"	:   String popped = pop();	
-                    				if(symbols.stackPop(popped) != null ) {
-                    			
-                    				push(symbols.stackPop(pop()));
                     				
-                    				}
-                    				else{
-                    				System.out.println("Stack does not exist or is empty. Cannot pop");
-                    				}
+                    case "SPOP"	:  
+
+                    				push(symbols.stackPop(pop()));
+
                     				
                     				break;
                     case "WHILE" : 	
