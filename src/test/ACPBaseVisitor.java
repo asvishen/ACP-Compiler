@@ -143,10 +143,7 @@ public class ACPBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AC
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSimplecall(ACPParser.SimplecallContext ctx) { 
-		
-		
-		return visitChildren(ctx); }
+	@Override public T visitSimplecall(ACPParser.SimplecallContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

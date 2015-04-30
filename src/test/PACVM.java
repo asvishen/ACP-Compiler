@@ -18,7 +18,7 @@ public class PACVM {
         INTEGER ("(\\+|-)?[0-9]+"),BOOLEAN ( "true|false"),
         
         STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),
-        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|DIV|GTN|EQU|GRE"),EXECUTE("EXECUTE"),
+        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|LEQ|DIV|GTN|EQU|GRE"),EXECUTE("EXECUTE"),
         IDENTIFIER ( "[A-Za-z_][A-Za-z0-9]*"),STRING("\"(\\.|[^\"])*\"")
         ;
         
@@ -408,12 +408,12 @@ public class PACVM {
                                 	flag=false;
                     				break;
                     
-                    case "IF" : 	System.out.println(":::   stack" + stack);
+                    case "IF" : 	//System.out.println(":::   stack" + stack);
                     
                     				String condResult = pop();
                     				String falsePart = pop();
                     				String truePart = pop();
-                    				System.out.println(condResult);
+                    				//System.out.println(condResult);
                     				switch(condResult){
                     				
                     				case "true" : 
@@ -421,7 +421,7 @@ public class PACVM {
                     					break;
                     				case "false":
                     					push(falsePart);
-                    					System.out.println(":::   stack" + stack);
+                    					//System.out.println(":::   stack" + stack);
                     					break;
                     					
                     				default:
@@ -449,7 +449,7 @@ public class PACVM {
                     }
                     break;
                     
-                case STARTBLOCK:	System.out.println("STARTING NEW BLOCK");
+                case STARTBLOCK:	//System.out.println("STARTING NEW BLOCK");
                 					processBlock(scanner);
                 					break;
                 	
@@ -514,8 +514,8 @@ public class PACVM {
                         buffer.append(scanner.next()).append(' ');
                         break;
                     default:
-                    	System.out.println(buffer);
-                    	System.out.println(scanner);
+                    	//System.out.println(buffer);
+                    	//System.out.println(scanner);
                         error("Syntax");
                 }
             }

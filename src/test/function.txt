@@ -1,9 +1,8 @@
 function func(int a)
 <<
-	a=2;
 	print [Value of a is ];
 	print a;
-	a=10;
-	print [Value of a is updated to ];
-	print a;
+	return a;
 >>
+
+int b=func(3);
