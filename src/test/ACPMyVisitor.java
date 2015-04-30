@@ -197,7 +197,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("stackshow");
 		String id = ctx.ID().getText().toString();
-		st.add("name", id);
+		st.add("name", "\""+id+"\"");
 		String result = st.render();
 		return new T(result);
 		
