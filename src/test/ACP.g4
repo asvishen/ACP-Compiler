@@ -50,7 +50,7 @@ block : 	 assignmentStatment
 			;
 
 printstmt : 'print' '[' ID+ ']' ';' 	#printString
-			| 'print' ID					#printvariable
+			| 'print' ID ';'					#printvariable
 			;
 
 returnstmt : 'return' sumexpr';'

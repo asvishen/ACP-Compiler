@@ -3,10 +3,6 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.antlr.v4.codegen.model.decl.Decl;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
@@ -31,23 +27,29 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		//T block = this.visit(ctx.block());
 		super.visitJustAnotherBlock(ctx);
 		List<T> blockList = new ArrayList<T>();
-		
+		String temp="";
 		for(int i=0; i< ctx.block().size();i++){
-			
-		
-		blockList.add(visit(ctx.block(i)));
+			if(visit(ctx.block(i)).isList()){
+			List<T> list = visit(ctx.block(i)).asList();
+			for(int j=0;j<list.size();j++)
+				
+			temp = temp+list.get(j).asString();
+			}
+			else {
+				temp=temp+visit(ctx.block(i));
+			}
 		
 		}
-		STGroup group = new STGroupDir(pathOfProject);
-		ST st = group.getInstanceOf("blockenclosed");
-		
-		st.add("block", blockList);
-
-		String result = st.render(); // yields "int x = 0;"
+//		STGroup group = new STGroupDir(pathOfProject);
+//		ST st = group.getInstanceOf("blockenclosed");
+//		
+//		st.add("block", blockList);
+//
+//		String result = st.render(); // yields "int x = 0;"
 		//System.out.println("block result"+result);
+		//System.out.println("this is temp" + temp + "end of temp");
 		
-		
-		return new T(result+"\n");
+		return new T(temp);
 		
 		 
 	}
@@ -116,10 +118,12 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		super.visitPrintvariable(ctx);
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("printstmt");
-		String id = 
+		String id = ctx.ID().getText().toString();
+		st.add("value",id);
+		String result = st.render();
 		
 		
-		return visitChildren(ctx);
+		return new T(result);
 		
 	
 	}
@@ -144,21 +148,58 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		return new T(result);	
 		}
 
-	@Override public T visitStackdecl(ACPParser.StackdeclContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStackdecl(ACPParser.StackdeclContext ctx) { 
+		
+		super.visitStackdecl(ctx);
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("stackdecl");
+		String id = ctx.ID().getText().toString();
+		st.add("name", id);
+		String result = st.render();
+		return new T(result);
+		
+		
+		
+		
+		}
+	
+	
+	
+	
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStackpush(ACPParser.StackpushContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStackpush(ACPParser.StackpushContext ctx) { 
+		super.visitStackpush(ctx);
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("stackadd");
+		String id = ctx.ID().getText().toString();
+		T factor = this.visit(ctx.factor());
+		st.add("name", id);
+		st.add("value",factor);
+		String result = st.render();
+		return new T(result);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStackpop(ACPParser.StackpopContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStackpop(ACPParser.StackpopContext ctx) { 
+		super.visitStackpop(ctx);
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("stackremove");
+		String id = ctx.ID().getText().toString();
+		st.add("name", id);
+		String result = st.render();
+		return new T(result);
+		
+		
+		}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -182,7 +223,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		{
 			temp = temp + local.asString()+"\n";
 		
-		System.out.println(temp);
+		//System.out.println(temp);
 		//return new T(blockList.toString().substring(1, blockList.toString().length()-1));
 		
 		}
@@ -354,14 +395,17 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		blockList.add(visit(ctx.func(i)));
 		
 		}
+		
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(pathOfProject+"/fff.mvm", "UTF-8");
 			//writer.println("[");
+			writer.println("SCOPEBEGINS");
 			for(T line: blockList)
 			{
-				writer.println(line.asString());
+				writer.println(line);
 			}
+			writer.println("SCOPEENDS");
 			//writer.println("]");
 
 		
@@ -526,7 +570,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	@Override public T visitReturnstmt(  ACPParser.ReturnstmtContext ctx) {
 		super.visitReturnstmt(ctx);
 		T sum = this.visit(ctx.sumexpr());
-		System.out.println("dept is "+ctx.sumexpr().getChild(0).getChildCount());
+		//System.out.println("dept is "+ctx.sumexpr().getChild(0).getChildCount());
 		if(ctx.sumexpr().getChild(0).getChildCount()==1){
 			sum=new T("PUSH " +sum);
 		}
