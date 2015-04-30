@@ -146,7 +146,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("stackdecl");
 		String id = ctx.ID().getText().toString();
-		st.add("name", id);
+		st.add("name", "\""+id+"\"");
 		String result = st.render();
 		return new T(result);
 		
@@ -170,7 +170,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		ST st = group.getInstanceOf("stackadd");
 		String id = ctx.ID().getText().toString();
 		T factor = this.visit(ctx.factor());
-		st.add("name", id);
+		st.add("name","\""+id+"\"");
 		st.add("value",factor);
 		String result = st.render();
 		return new T(result);
@@ -186,7 +186,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("stackremove");
 		String id = ctx.ID().getText().toString();
-		st.add("name", id);
+		st.add("name", "\""+id+"\"");
 		String result = st.render();
 		return new T(result);
 		
