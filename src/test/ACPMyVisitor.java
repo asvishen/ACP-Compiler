@@ -427,22 +427,30 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 			writer.println("SCOPEBEGINS");
 			for(T line: blockList)
 			{
-				String code = line.asString();
-				if(code.contains("PUSH")){
-				String[] arr = code.split(" ");
 				String text="";
+				String code = line.asString();
+				/*if(code.contains("INNERSCOPEBEGINS") && code.contains("PUSH")){
+					code="INNERSCOPEBEGINS";
+				}*/
+				//System.out.println(""+code);
+				if(code.contains("PUSH")){
+					
+				String[] arr = code.split(" ");
+				
 				for(int i =0;i<arr.length;i++){
 					if(!arr[i].equals("PUSH")){
 						
-						text+=arr[i];
+						text+=" "+arr[i];
 						
 					}
 				}
-				System.out.println("PUSH "+" "+text);	
-				line =  new T("PUSH "+ " " +text);
+					text = 	"PUSH " + text;
+					line =  new T(text);
 				}
 				
+				
 				writer.println(line);
+				System.out.println(line.asString());
 			}
 			writer.println("SCOPEENDS");
 			//writer.println("]");
