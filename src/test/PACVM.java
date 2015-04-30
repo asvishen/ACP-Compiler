@@ -17,8 +17,8 @@ public class PACVM {
     	
         INTEGER ("(\\+|-)?[0-9]+"),BOOLEAN ( "true|false"),
         
-        STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),EXECUTE("EXECUTE"),
-        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|DIV|GTN|EQU|GRE"),
+        STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),
+        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|DIV|GTN|EQU|GRE"),EXECUTE("EXECUTE"),
         IDENTIFIER ( "[A-Za-z_][A-Za-z0-9]*"),STRING("\"(\\.|[^\"])*\"")
         ;
         
@@ -481,6 +481,8 @@ public class PACVM {
                     case BOOLEAN:
                         buffer.append(scanner.next()).append(' ');
                         break;
+                    case EXECUTE: 
+                    	//System.out.println(buffer);
                     case IDENTIFIER:
                         buffer.append(scanner.next()).append(' ');
                         break;
@@ -490,10 +492,13 @@ public class PACVM {
                         innerscope(scanner, buffer);
                         buffer.append(' ');
                         break;
+
                     case OPERATOR:
                         buffer.append(scanner.next()).append(' ');
                         break;
                     default:
+                    	System.out.println(buffer);
+                    	System.out.println(scanner);
                         error("Syntax");
                 }
             }

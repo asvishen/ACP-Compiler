@@ -10,14 +10,14 @@ function fact(int n)
 	>>
 >>
 
-int a;
-a= fact(4);
+
+int a= fact(4);
 
 if(a == 24)
 <<
-	print [i think this is it];
+	print [factorial test passed];
 >>
 else
 <<
-	print [i dont think this is ever going to work];
+	print [test failed];
 >>
