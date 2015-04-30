@@ -122,7 +122,14 @@ public class ACPBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AC
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrintstmt(ACPParser.PrintstmtContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrintString(ACPParser.PrintStringContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitPrintvariable(ACPParser.PrintvariableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,13 +150,6 @@ public class ACPBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AC
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	//@Override public T visitComplexcall(ACPParser.ComplexcallContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitStackdecl(ACPParser.StackdeclContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -157,7 +157,14 @@ public class ACPBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AC
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStackoperation(ACPParser.StackoperationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStackpush(ACPParser.StackpushContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStackpop(ACPParser.StackpopContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

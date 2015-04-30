@@ -12,7 +12,8 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T>{
-		String pathOfProject = "C:/Users/Chinmay/Documents/Bitbucket/ser-502-p2/src/tmp";
+		String pathOfProject = System.getProperty("user.dir") + "/../tmp";
+		
 		@Override public T visitSub(  ACPParser.SubContext ctx) { 
 		super.visitSub(ctx);
 		T left = visit(ctx.sumexpr()); // get value of left subexpression
@@ -23,7 +24,6 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		st.add("left", left.toString());
 		st.add("right", right.toString());
 		String result = st.render(); // yields "int x = 0;"
-		//System.out.println("this is sub"+result);
 		return new T(result); 
 		}
 
@@ -56,7 +56,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	public T visitIfwithout(  ACPParser.IfwithoutContext ctx) { 
 		super.visitIfwithout(ctx);
 		T compexpr= this.visit(ctx.compexpr());
-		T elseP = this.visit(ctx.elsepart());
+		T elseP = visit(ctx.elsepart());
 		//System.out.println(elseP);
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("ifstmt");
@@ -92,8 +92,8 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		return new T(result);
 	}
 
-	@Override public T visitPrintstmt(  ACPParser.PrintstmtContext ctx) {
-		super.visitPrintstmt(ctx);
+	@Override public T visitPrintString(  ACPParser.PrintStringContext ctx) {
+		super.visitPrintString(ctx);
 		String text="";
 		STGroup group = new STGroupDir(pathOfProject);
 		ST st = group.getInstanceOf("printstmt");
@@ -110,6 +110,18 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 
 		
 		return new T("\n"+ result);
+	}
+	
+	@Override public T visitPrintvariable(ACPParser.PrintvariableContext ctx) { 
+		super.visitPrintvariable(ctx);
+		STGroup group = new STGroupDir(pathOfProject);
+		ST st = group.getInstanceOf("printstmt");
+		String id = 
+		
+		
+		return visitChildren(ctx);
+		
+	
 	}
 
 	/**
@@ -132,8 +144,21 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		return new T(result);	
 		}
 
-	@Override public T visitStackoperation(  ACPParser.StackoperationContext ctx) { return visitChildren(ctx); }
-
+	@Override public T visitStackdecl(ACPParser.StackdeclContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStackpush(ACPParser.StackpushContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitStackpop(ACPParser.StackpopContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -147,15 +172,22 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	}
 
 	@Override public T visitElsepart(  ACPParser.ElsepartContext ctx) {
-		super.visitElsepart(ctx);
+		//super.visitElsepart(ctx);
 		List<T> blockList = new ArrayList<T>();
 		for(int i=0; i< ctx.block().size();i++){
 		blockList.add(visit(ctx.block(i)));
 		}
+		String temp="";
+		for(T local : blockList)
+		{
+			temp = temp + local.asString()+"\n";
 		
-		return new T(blockList); 
+		System.out.println(temp);
+		//return new T(blockList.toString().substring(1, blockList.toString().length()-1));
+		
 		}
-
+		return new T(temp);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -318,7 +350,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		
 		for(int i=0; i< ctx.func().size();i++){
 			
-		
+		System.out.println(pathOfProject);
 		blockList.add(visit(ctx.func(i)));
 		
 		}
@@ -484,7 +516,6 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 		
 	}
 
-	@Override public T visitStackdecl(  ACPParser.StackdeclContext ctx) { return visitChildren(ctx); }
 
 	/**
 	 * {@inheritDoc}
@@ -495,6 +526,10 @@ public class ACPMyVisitor extends ACPBaseVisitor<T>{
 	@Override public T visitReturnstmt(  ACPParser.ReturnstmtContext ctx) {
 		super.visitReturnstmt(ctx);
 		T sum = this.visit(ctx.sumexpr());
+		System.out.println("dept is "+ctx.sumexpr().getChild(0).getChildCount());
+		if(ctx.sumexpr().getChild(0).getChildCount()==1){
+			sum=new T("PUSH " +sum);
+		}
 		return new T(sum.asString()); 
 		}
 

@@ -111,11 +111,19 @@ public interface ACPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(ACPParser.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ACPParser#printstmt}.
+	 * Visit a parse tree produced by the {@code printString}
+	 * labeled alternative in {@link ACPParser#printstmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrintstmt(ACPParser.PrintstmtContext ctx);
+	T visitPrintString(ACPParser.PrintStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code printvariable}
+	 * labeled alternative in {@link ACPParser#printstmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintvariable(ACPParser.PrintvariableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ACPParser#returnstmt}.
 	 * @param ctx the parse tree
@@ -130,24 +138,25 @@ public interface ACPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimplecall(ACPParser.SimplecallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code complexcall}
-	 * labeled alternative in {@link ACPParser#call}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	//T visitComplexcall(ACPParser.ComplexcallContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ACPParser#stackdecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitStackdecl(ACPParser.StackdeclContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ACPParser#stackoperation}.
+	 * Visit a parse tree produced by the {@code stackpush}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStackoperation(ACPParser.StackoperationContext ctx);
+	T visitStackpush(ACPParser.StackpushContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code stackpop}
+	 * labeled alternative in {@link ACPParser#stackoperation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStackpop(ACPParser.StackpopContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code assign}
 	 * labeled alternative in {@link ACPParser#assignmentStatment}.

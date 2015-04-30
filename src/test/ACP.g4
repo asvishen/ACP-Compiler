@@ -49,7 +49,9 @@ block : 	 assignmentStatment
 			| stackoperation
 			;
 
-printstmt : 'print' '[' ID+ ']' ';';
+printstmt : 'print' '[' ID+ ']' ';' 	#printString
+			| 'print' ID					#printvariable
+			;
 
 returnstmt : 'return' sumexpr';'
 		;
@@ -60,8 +62,8 @@ call : ID '(' sumexpr ')'						#simplecall
 
 stackdecl: 'stack' ID';';
 
-stackoperation: ID'.' 'push' '(' factor ')' ';'
-				|ID'.' 'pop' '(' ')' ';'
+stackoperation: ID'.' 'push' '(' factor ')' ';'			#stackpush
+				|ID'.' 'pop' '(' ')' ';'				#stackpop
 				;
 
 	
