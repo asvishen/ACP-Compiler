@@ -1,0 +1,12 @@
+function abc(int a)
+<<
+        int a=1;
+        if(a==1 and b<=2)
+        <<
+                print [yes];
+        >>
+        else
+        <<
+                print [no];
+        >>
+>>

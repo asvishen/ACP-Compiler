@@ -130,13 +130,6 @@ public interface ACPVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimplecall(ACPParser.SimplecallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code complexcall}
-	 * labeled alternative in {@link ACPParser#call}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	//T visitComplexcall(ACPParser.ComplexcallContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ACPParser#stackdecl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

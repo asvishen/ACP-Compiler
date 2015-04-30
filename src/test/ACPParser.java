@@ -103,12 +103,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_start; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterStart(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitStart(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitStart(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -167,12 +164,9 @@ public class ACPParser extends Parser {
 		}
 		public FuncwithoutparamContext(FuncContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterFuncwithoutparam(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitFuncwithoutparam(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitFuncwithoutparam(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class JustAnotherBlockContext extends FuncContext {
@@ -184,12 +178,9 @@ public class ACPParser extends Parser {
 		}
 		public JustAnotherBlockContext(FuncContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterJustAnotherBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitJustAnotherBlock(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitJustAnotherBlock(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class FuncwithparamContext extends FuncContext {
@@ -205,12 +196,9 @@ public class ACPParser extends Parser {
 		}
 		public FuncwithparamContext(FuncContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterFuncwithparam(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitFuncwithparam(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitFuncwithparam(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -335,12 +323,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_params; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterParams(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitParams(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitParams(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -393,12 +378,9 @@ public class ACPParser extends Parser {
 		}
 		public IfwithoutContext(IfstmtContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterIfwithout(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitIfwithout(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitIfwithout(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class IfonlyContext extends IfstmtContext {
@@ -413,12 +395,9 @@ public class ACPParser extends Parser {
 		}
 		public IfonlyContext(IfstmtContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterIfonly(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitIfonly(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitIfonly(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -525,12 +504,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_whilestmt; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterWhilestmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitWhilestmt(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitWhilestmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -592,12 +568,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_elsepart; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterElsepart(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitElsepart(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitElsepart(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -659,12 +632,9 @@ public class ACPParser extends Parser {
 		}
 		public OrContext(CompexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterOr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitOr(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitOr(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class OrwithoutContext extends CompexprContext {
@@ -673,12 +643,9 @@ public class ACPParser extends Parser {
 		}
 		public OrwithoutContext(CompexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterOrwithout(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitOrwithout(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitOrwithout(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -760,12 +727,9 @@ public class ACPParser extends Parser {
 		}
 		public AndwithoutContext(AndcompContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterAndwithout(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitAndwithout(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitAndwithout(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class AndContext extends AndcompContext {
@@ -777,12 +741,9 @@ public class ACPParser extends Parser {
 		}
 		public AndContext(AndcompContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterAnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitAnd(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitAnd(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -868,12 +829,9 @@ public class ACPParser extends Parser {
 		public TerminalNode CMPOP() { return getToken(ACPParser.CMPOP, 0); }
 		public CompContext(RelexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterComp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitComp(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitComp(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -933,12 +891,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_block; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterBlock(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitBlock(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitBlock(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1027,12 +982,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_printstmt; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterPrintstmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitPrintstmt(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitPrintstmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1087,12 +1039,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_returnstmt; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterReturnstmt(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitReturnstmt(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitReturnstmt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1139,12 +1088,9 @@ public class ACPParser extends Parser {
 		}
 		public SimplecallContext(CallContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterSimplecall(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitSimplecall(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitSimplecall(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1183,12 +1129,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_stackdecl; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterStackdecl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitStackdecl(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitStackdecl(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1227,12 +1170,9 @@ public class ACPParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_stackoperation; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterStackoperation(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitStackoperation(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitStackoperation(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1310,12 +1250,9 @@ public class ACPParser extends Parser {
 		}
 		public AssignContext(AssignmentStatmentContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterAssign(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitAssign(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitAssign(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1369,12 +1306,9 @@ public class ACPParser extends Parser {
 		}
 		public AddContext(SumexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterAdd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitAdd(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitAdd(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class SubContext extends SumexprContext {
@@ -1386,12 +1320,9 @@ public class ACPParser extends Parser {
 		}
 		public SubContext(SumexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterSub(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitSub(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitSub(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class GototermContext extends SumexprContext {
@@ -1400,12 +1331,9 @@ public class ACPParser extends Parser {
 		}
 		public GototermContext(SumexprContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterGototerm(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitGototerm(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitGototerm(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1507,12 +1435,9 @@ public class ACPParser extends Parser {
 		}
 		public DivContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterDiv(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitDiv(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitDiv(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class MulContext extends TermContext {
@@ -1524,12 +1449,9 @@ public class ACPParser extends Parser {
 		}
 		public MulContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterMul(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitMul(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitMul(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class GotofactorContext extends TermContext {
@@ -1538,12 +1460,9 @@ public class ACPParser extends Parser {
 		}
 		public GotofactorContext(TermContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterGotofactor(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitGotofactor(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitGotofactor(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1640,36 +1559,27 @@ public class ACPParser extends Parser {
 		public TerminalNode NumberValue() { return getToken(ACPParser.NumberValue, 0); }
 		public NumberContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterNumber(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitNumber(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitNumber(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class BooleanContext extends FactorContext {
 		public TerminalNode BooleanValue() { return getToken(ACPParser.BooleanValue, 0); }
 		public BooleanContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterBoolean(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitBoolean(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitBoolean(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class IdContext extends FactorContext {
 		public TerminalNode ID() { return getToken(ACPParser.ID, 0); }
 		public IdContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterId(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitId(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitId(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	public static class CallfuncContext extends FactorContext {
@@ -1678,12 +1588,9 @@ public class ACPParser extends Parser {
 		}
 		public CallfuncContext(FactorContext ctx) { copyFrom(ctx); }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).enterCallfunc(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ACPListener ) ((ACPListener)listener).exitCallfunc(this);
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ACPVisitor ) return ((ACPVisitor<? extends T>)visitor).visitCallfunc(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
