@@ -1,4 +1,4 @@
-Instructions for running Factorial Code:
+Instructions for running a code in ACP language:
 
 Step 1:	Navigate in Command Prompt to the "ACP" folder in our project. Then execute the following command.
 	SET CLASSPATH=.;.\..\lib\antlr-4.5-complete.jar;
@@ -17,3 +17,9 @@ Step 7: java PACVM
 
 Step 8: Then copy-paste the below command.
 	SCOPEBEGINS "inter_code\ic.pac" LOAD SCOPEENDS
+
+WOHHOOO !! It gives you the correct output, doesn't it !
+
+Now, "sample_programs" inside "ACP" contains some sample codes. To run these, just replace the below *Name_of_program* to the desired name:
+
+Step 6:java AGrammar sample_programs\*Name_of_program* and then Repeat Step 7 and 8.
