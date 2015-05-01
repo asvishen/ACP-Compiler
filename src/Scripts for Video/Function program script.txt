@@ -1,0 +1,6 @@
+This is a simple example program to demonstrate usage and syntax of function in ACP.
+
+We are declaring a variable as "int b" and making a call to function func which accepts one parameter, ie, "int a".
+
+"<<" and ">>" are used to define the scope of the function and we are simply printing the value of a in the function and
+returning it to variable b.

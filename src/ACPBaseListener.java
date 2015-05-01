@@ -1,4 +1,4 @@
-// Generated from ACP.g4 by ANTLR 4.5
+// Generated from ./ACP/ACP.g4 by ANTLR 4.5
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -196,13 +196,25 @@ public class ACPBaseListener implements ACPListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrintstmt(ACPParser.PrintstmtContext ctx) { }
+	@Override public void enterPrintString(ACPParser.PrintStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrintstmt(ACPParser.PrintstmtContext ctx) { }
+	@Override public void exitPrintString(ACPParser.PrintStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrintvariable(ACPParser.PrintvariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrintvariable(ACPParser.PrintvariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -220,13 +232,13 @@ public class ACPBaseListener implements ACPListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCall(ACPParser.CallContext ctx) { }
+	@Override public void enterSimplecall(ACPParser.SimplecallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCall(ACPParser.CallContext ctx) { }
+	@Override public void exitSimplecall(ACPParser.SimplecallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -244,13 +256,37 @@ public class ACPBaseListener implements ACPListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStackoperation(ACPParser.StackoperationContext ctx) { }
+	@Override public void enterStackpush(ACPParser.StackpushContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStackoperation(ACPParser.StackoperationContext ctx) { }
+	@Override public void exitStackpush(ACPParser.StackpushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackpop(ACPParser.StackpopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackpop(ACPParser.StackpopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackshow(ACPParser.StackshowContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackshow(ACPParser.StackshowContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -263,6 +299,18 @@ public class ACPBaseListener implements ACPListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssign(ACPParser.AssignContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignIncrDecr(ACPParser.AssignIncrDecrContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

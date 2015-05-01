@@ -1,0 +1,6 @@
+This is a simple example program to find factorial of any number. Here, we have a function which is calling itself recursively to calculate the 
+factorial of the number being passed to it.
+
+When the function "fact" finishes, value is passed back to the calling variable. 
+
+Then, an "IF" condition is used to determine whether the correct value is obtained or not.

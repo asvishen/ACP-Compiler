@@ -1,7 +1,0 @@
-function fact(int n)
-<<
-	if(n>1)
-	<<
-		print [chi];
-	>>
->>

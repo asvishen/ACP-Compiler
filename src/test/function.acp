@@ -1,8 +1,0 @@
-function func(int a)
-<<
-	print [Value of a is ];
-	print a;
-	return a;
->>
-
-int b=func(3);

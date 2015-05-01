@@ -1,0 +1,19 @@
+Instructions for running Factorial Code:
+
+Step 1:	Navigate in Command Prompt to the "ACP" folder in our project. Then execute the following command.
+	SET CLASSPATH=.;.\..\lib\antlr-4.5-complete.jar;
+
+Step 2: doskey antlr4=java org.antlr.v4.Tool $*
+
+Step 3:	doskey grun=java org.antlr.v4.runtime.misc.TestRig $*
+
+Step 4: antlr4 ACP.g4 -visitor -no-listener
+
+Step 5: javac ACP*.java AGrammar.java T.java PACVM.java
+
+Step 6: java AGrammar sample_programs\factorial.acp
+
+Step 7: java PACVM 
+
+Step 8: Then copy-paste the below command.
+	SCOPEBEGINS "inter_code\ic.pac" LOAD SCOPEENDS

@@ -8,7 +8,7 @@ import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 
 public class ACPMyVisitor extends ACPBaseVisitor<T> {
-	String pathOfProject = System.getProperty("user.dir") + "/../tmp";
+	String pathOfProject = System.getProperty("user.dir") + "/../templates";
 	
 	@Override
 	public T visitStart(ACPParser.StartContext ctx) {
@@ -19,7 +19,7 @@ public class ACPMyVisitor extends ACPBaseVisitor<T> {
 
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(pathOfProject + "/ic.pac", "UTF-8");
+			writer = new PrintWriter(pathOfProject + "/../inter_code/ic.pac", "UTF-8");
 			writer.println("SCOPEBEGINS");
 			for (T line : blockList) {
 				String text = "";

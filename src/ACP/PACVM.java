@@ -17,8 +17,8 @@ public class PACVM {
     	
         INTEGER ("(\\+|-)?[0-9]+"),BOOLEAN ( "true|false"),
         
-        STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),EXECUTE("EXECUTE"),
-        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|DIV|GTN|EQU|GRE"),
+        STARTBLOCK( "SCOPEBEGINS"), STARTINNERBLOCK("INNERSCOPEBEGINS"), BLOCKEND("SCOPEENDS"),
+        OPERATOR ( "MUL|ADD|SUB|ORR|AND|LET|LEQ|DIV|GTN|EQU|GRE"),EXECUTE("EXECUTE"),
         IDENTIFIER ( "[A-Za-z_][A-Za-z0-9]*"),STRING("\"(\\.|[^\"])*\"")
         ;
         
@@ -198,6 +198,20 @@ public class PACVM {
         void bindStack(String name){
         	stackMap.getFirst().put(name, new Stack<String>());
         }
+        String showStack(String name){
+        	for(HashMap<String, Stack<String>> table : stackMap){
+        		if(table.containsKey(name)){
+        			try{
+        			return table.get(name).toString();
+        			}
+        			catch(EmptyStackException e){
+        				return null;
+        			}
+        		}
+        		
+        	}
+        	return null;
+        }
 
         void enter() {
             symbols.addFirst(new HashMap<String, SymbolEntry>());
@@ -346,7 +360,7 @@ public class PACVM {
                 case IDENTIFIER:
                     String symbol = scanner.next();
                     switch(symbol){
-                    case "PUSH"	: 	//System.out.println("u have a push id");
+                    case "PUSH"	: 	
                     				break;
                     
                     case "SHOW": 	System.out.println(pop()); 
@@ -354,20 +368,23 @@ public class PACVM {
                     
                     case "ASSIGN" : symbols.bind(pop(), pop());
                     				break;
-                    case "STACK"  : symbols.bindStack(pop());
+                    				
+                    case "STACK"  : 
+                    				symbols.bindStack(pop());
+                    				
                     				break;
                     case "SPUSH" :  symbols.stackPush(pop(), pop());
+                    				
+                    				break;
+                    case "SSHOW" :  
+                    				System.out.println(symbols.showStack(pop()));
                     				break;
                     				
-                    case "SPOP"	:   String popped = pop();	
-                    				if(symbols.stackPop(popped) != null ) {
-                    			
-                    				push(symbols.stackPop(pop()));
                     				
-                    				}
-                    				else{
-                    				System.out.println("Stack does not exist or is empty. Cannot pop");
-                    				}
+                    case "SPOP"	:  
+
+                    				push(symbols.stackPop(pop()));
+
                     				
                     				break;
                     case "WHILE" : 	
@@ -391,12 +408,12 @@ public class PACVM {
                                 	flag=false;
                     				break;
                     
-                    case "IF" : 	System.out.println(":::   stack" + stack);
+                    case "IF" : 	//System.out.println(":::   stack" + stack);
                     
                     				String condResult = pop();
                     				String falsePart = pop();
                     				String truePart = pop();
-                    				System.out.println(condResult);
+                    				//System.out.println(condResult);
                     				switch(condResult){
                     				
                     				case "true" : 
@@ -404,7 +421,7 @@ public class PACVM {
                     					break;
                     				case "false":
                     					push(falsePart);
-                    					System.out.println(":::   stack" + stack);
+                    					//System.out.println(":::   stack" + stack);
                     					break;
                     					
                     				default:
@@ -415,7 +432,7 @@ public class PACVM {
                     				}
                     				break;
                     				
-                    case "LOAD	":
+                    case "LOAD":
                         			String file = pop();
                         			System.out.println("loading " + new File(file).getAbsolutePath());
                         			try {
@@ -432,7 +449,7 @@ public class PACVM {
                     }
                     break;
                     
-                case STARTBLOCK:	System.out.println("STARTING NEW BLOCK");
+                case STARTBLOCK:	//System.out.println("STARTING NEW BLOCK");
                 					processBlock(scanner);
                 					break;
                 	
@@ -481,6 +498,8 @@ public class PACVM {
                     case BOOLEAN:
                         buffer.append(scanner.next()).append(' ');
                         break;
+                    case EXECUTE: 
+                    	//System.out.println(buffer);
                     case IDENTIFIER:
                         buffer.append(scanner.next()).append(' ');
                         break;
@@ -490,10 +509,13 @@ public class PACVM {
                         innerscope(scanner, buffer);
                         buffer.append(' ');
                         break;
+
                     case OPERATOR:
                         buffer.append(scanner.next()).append(' ');
                         break;
                     default:
+                    	//System.out.println(buffer);
+                    	//System.out.println(scanner);
                         error("Syntax");
                 }
             }

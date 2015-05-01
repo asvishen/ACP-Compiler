@@ -35,8 +35,7 @@ relexpr : sumexpr CMPOP sumexpr 									#comp
 CMPOP : '<=' 
 	|'>=' 
 	|'<' 
-	| '>' 
-	| '!=' 
+	| '>'  
 	| '=='
 	;
 
@@ -50,22 +49,26 @@ block : 	 assignmentStatment
 			| stackoperation
 			;
 
-printstmt : 'print' '[' ID+ ']' ';';
+printstmt : 'print' '[' ID+ ']' ';' 	#printString
+			| 'print' ID ';'					#printvariable
+			;
 
 returnstmt : 'return' sumexpr';'
 		;
 
-call : ID '(' sumexpr ')' 			
+call : ID '(' sumexpr ')'						#simplecall
+			//| ID '=' ID'(' sumexpr ')'';'			#complexcall
 	;
 
 stackdecl: 'stack' ID';';
 
-stackoperation: ID'.' 'push' '(' factor ')' ';'
-				|ID'.' 'pop' '(' ')' ';'
+stackoperation: ID'.' 'push' '(' factor ')' ';'			#stackpush
+				|ID'.' 'pop' '(' ')' ';'				#stackpop
+				|ID'.' 'show' '(' ')' ';'				#stackshow
 				;
-
 	
 assignmentStatment : Datatype ID '=' sumexpr';' 					#assign
+					| ID '=' sumexpr';'								#assignIncrDecr
 					;
 						
 

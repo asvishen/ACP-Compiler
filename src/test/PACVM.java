@@ -432,7 +432,7 @@ public class PACVM {
                     				}
                     				break;
                     				
-                    case "LOAD	":
+                    case "LOAD":
                         			String file = pop();
                         			System.out.println("loading " + new File(file).getAbsolutePath());
                         			try {

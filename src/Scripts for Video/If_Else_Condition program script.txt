@@ -1,0 +1,9 @@
+This is a simple example program to demonstrate the IF_ELSE statement.
+
+We're checking 2 conditions in the IF statement separated by the AND operator.
+
+We have used "less-than-equals" and "equals" operators in this example.
+
+If both conditions are satisfied, program will print "Both conditions satisfied"
+
+Else it will print "Not satisfied"

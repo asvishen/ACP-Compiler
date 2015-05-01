@@ -1,0 +1,5 @@
+This is an example program to demonstrate Stack operations.
+
+Our program can declare a stack, push a value on the stack, pop the top value on stack, 
+and even show the stack contents.
+

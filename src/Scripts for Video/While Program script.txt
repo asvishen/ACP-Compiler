@@ -1,0 +1,8 @@
+This is a simple example program to demonstrate the While loop functionality.
+
+Similar to the program for function, the whileFunc is being called with parameter as 10.
+
+Inside the while loop, condition is being checked to run the while loop till the time value of variable a is greater
+than equal to 2.
+
+Till the time the condition is satisfied, the contents of the While loop will get executed.
